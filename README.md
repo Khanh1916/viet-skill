@@ -1,116 +1,125 @@
 # viet-skill 🇻🇳
 
-**Skill giúp AI agent làm đúng những việc rất Việt Nam mà nó hay làm sai:** lịch âm theo giờ
-Việt Nam, và văn bản hành chính đúng thể thức Nghị định 30. Dùng được với Claude Code, Codex,
-Cursor, Gemini CLI, OpenCode và các agent hỗ trợ chuẩn
-[Agent Skills](https://github.com/agentskills/agentskills).
+Hai skill cho AI agent: một skill xem lịch âm theo giờ Việt Nam, một skill soạn văn bản hành chính
+đúng Nghị định 30. Dùng được với Claude Code, Codex, Cursor, Gemini CLI, OpenCode và các agent
+theo chuẩn [Agent Skills](https://github.com/agentskills/agentskills).
 
 [![ci](https://github.com/Khanh1916/viet-skill/actions/workflows/ci.yml/badge.svg)](https://github.com/Khanh1916/viet-skill/actions/workflows/ci.yml)
 ![license](https://img.shields.io/badge/license-MIT-green)
 ![python](https://img.shields.io/badge/python-3.10%2B-blue)
-![dependencies](https://img.shields.io/badge/thư_viện_ngoài-0-brightgreen)
 
-> *English summary at the bottom.*
+*English below.*
 
-## AI sai ở đâu? (đã đo, không đoán)
+## Tết 2030 là ngày nào?
 
-Lịch âm Việt Nam tính theo múi giờ +7, lịch Trung Quốc tính theo +8. Phần lớn thời gian hai
-lịch trùng nhau, nhưng **từ 2000 đến 2050 có 480 ngày âm lịch Việt Nam khác Trung Quốc**, rơi
-vào 18 năm (riêng giai đoạn 2030–2041 có 9 năm). AI học chủ yếu từ dữ liệu lịch Trung Quốc nên
-trả lời theo lịch Trung Quốc.
+Mình hỏi Claude Haiku, Sonnet và Opus câu này mà không cho dùng công cụ. Cả ba đều trả lời
+03/02/2030, Opus còn tự nhận chắc 90%. Nhưng ở Việt Nam, mùng 1 Tết năm đó là **ngày 02/02/2030**.
+Ngày 03/02 là Tết của Trung Quốc.
 
-Chúng tôi hỏi 3 model Claude (Haiku, Sonnet, Opus 5.5), chỉ dùng kiến thức có sẵn:
+Lịch âm Việt Nam tính theo giờ Hà Nội (UTC+7), lịch Trung Quốc tính theo giờ Bắc Kinh (UTC+8).
+Đầu năm 2030, trăng mới rơi vào lúc 23h09 giờ Hà Nội, tức 0h09 hôm sau ở Bắc Kinh. Vậy là
+ngày 02/02 đã là mùng 1 ở Việt Nam, còn bên Trung Quốc vẫn là ngày cuối năm cũ. Chuyện này
+không hiếm: từ 2000 đến 2050 có 480 ngày âm lịch hai nước lệch nhau một ngày, nằm trong 18 năm.
+Năm 2007 cũng vậy, Việt Nam ăn Tết ngày 17/2 còn Trung Quốc ngày 18/2.
 
-| Câu hỏi | Đáp án đúng | Haiku | Sonnet | Opus |
+Mình đoán AI nghiêng về lịch Trung Quốc vì lịch âm trên mạng phần lớn là của Trung Quốc. Ngày
+thường nó vẫn trả lời ổn, nhưng đến đúng những ngày hai lịch lệch nhau thì sai, và sai mà vẫn
+chắc như lúc đúng. Model nhỏ thì sai cả ngày thường.
+
+| Câu hỏi (không cho dùng công cụ) | Đáp án đúng | Haiku | Sonnet | Opus |
 |---|---|---|---|---|
-| Mùng 1 Tết 2030 ở Việt Nam? | **02/02/2030** | ❌ 03/02 | ❌ 03/02 | ❌ 03/02 (tự tin 90%) |
-| Rằm tháng Giêng 2028? | **09/02/2028, thứ Tư** | ❌ 11/02 (tự tin 60%) | ✅ | ✅ |
-| 4 câu đổi âm ↔ dương, can chi, tháng nhuận khác | (xem test) | ✅ 4/4 | ✅ 4/4 | ✅ 4/4 |
-| Soạn công văn, chấm theo 10 tiêu chí thể thức NĐ 30 | 10/10 | 8/10 | 9/10 | 10/10 |
-| **Có viet-skill** | | Lịch âm: luôn đúng (tính bằng thuật toán). Công văn: **10/10** | | |
+| Mùng 1 Tết 2030 ở Việt Nam | 02/02/2030 | 03/02 ❌ | 03/02 ❌ | 03/02 ❌ |
+| Rằm tháng Giêng 2028 | 09/02/2028 | 11/02 ❌ | đúng | đúng |
+| 4 câu đổi ngày, can chi, tháng nhuận | | 4/4 | 4/4 | 4/4 |
+| Soạn công văn, chấm theo 10 tiêu chí thể thức NĐ 30 | | 8/10 | 9/10 | 10/10 |
 
-Hai điều rút ra:
+Mỗi câu mình chỉ hỏi một lần, vào ngày 7 và 8/11/2026, nên đây là thử nhanh chứ chưa phải
+benchmark.
 
-- Model mạnh đúng với ngày bình thường, nhưng **sai đồng loạt ở những ngày lịch Việt lệch lịch
-  Trung**, và sai rất tự tin.
-- Model nhỏ còn sai cả ngày bình thường, với mức tự tin ngang các câu nó trả lời đúng. Người
-  dùng **không thể biết câu nào sai**. Có skill, câu trả lời được tính bằng thuật toán chứ không
-  đoán.
+## Hai skill
 
-Thử nghiệm nhỏ ngày 07 và 08/11/2026, mỗi câu hỏi một lần cho mỗi model. Công văn của Haiku khi
-không có skill đặt Quốc hiệu sai vị trí, in nghiêng trích yếu và ghi ký hiệu "CV". Khi có skill,
-các lỗi này hết.
+### lich-am
 
-## Vì sao chỉ có 2 skill?
+Agent không nhẩm lịch nữa mà chạy một script Python tính theo giờ Việt Nam. Script đổi ngày âm
+sang dương và ngược lại, tính can chi, tháng nhuận, ngày Tết, Giỗ Tổ, Trung thu và các ngày nghỉ
+lễ trong năm. Nó chạy ngay trên máy, không cần mạng, không cài thêm thư viện.
 
-Bản đầu có 6 skill. Sau khi đo, **4 skill bị bỏ vì AI không cần chúng**:
+Bạn có thể hỏi agent kiểu: *"Giỗ ông ngày 23 tháng 7 âm, năm sau rơi vào thứ mấy?"*
 
-| Skill đã bỏ | Lý do |
-|---|---|
-| Thuế TNCN 2026 | Cả 3 model đều tính đúng lương gross từ net theo luật mới |
-| Mã QR VietQR | Cả 3 model đều viết đúng link QR; app ngân hàng nào cũng có sẵn QR nhận tiền |
-| Tỷ giá | Agent có công cụ web tự tra được đúng số |
-| Đơn vị hành chính 34 tỉnh | Sonnet, Opus đã biết; phần thật sự cần (đổi địa chỉ cũ sang mới) chưa có nguồn dữ liệu chính thức |
+### van-ban-hanh-chinh
 
-Một skill AI không cần chỉ làm agent chậm hơn và repo rườm rà hơn. Skill mới chỉ được thêm khi
-có bằng chứng AI làm sai mà skill sửa được.
+Soạn hoặc soát công văn, tờ trình, thông báo, quyết định, giấy mời theo thể thức ở Phụ lục I
+Nghị định 30/2020/NĐ-CP, từ Quốc hiệu, số và ký hiệu, trích yếu cho tới nơi nhận, chữ ký, phông
+chữ và lề. Lúc chưa có skill, Haiku đặt Quốc hiệu sai chỗ, in nghiêng phần trích yếu và tự đặt
+ký hiệu "CV". Có skill thì những lỗi đó không còn.
 
-## Có những gì
+Skill dặn agent hỏi đủ thông tin trước khi viết, và không bịa số văn bản, căn cứ pháp lý hay tên
+người. Văn bản agent soạn ra vẫn là bản nháp, người có thẩm quyền cần đọc lại trước khi ký.
 
-| Skill | Agent làm được gì | Thử hỏi agent |
-|---|---|---|
-| [`lich-am`](skills/lich-am/SKILL.md) | Đổi âm ↔ dương theo giờ Việt Nam, can chi, tháng nhuận, ngày lễ. Chạy offline. | *"Giỗ ông ngày 23 tháng 7 âm, năm sau là thứ mấy?"* |
-| [`van-ban-hanh-chinh`](skills/van-ban-hanh-chinh/SKILL.md) | Soạn và rà soát văn bản đúng thể thức NĐ 30/2020 | *"Soạn công văn xin phép tổ chức hội trại ở trường"* |
+Ví dụ: *"Soạn công văn xin phép tổ chức hội trại ở trường."*
 
 ## Cài đặt
 
-Cách nhanh, dùng [skills CLI](https://github.com/vercel-labs/skills) (cần Node.js 22.20 trở lên):
+Máy có Node.js 22.20 trở lên thì dùng [skills CLI](https://github.com/vercel-labs/skills):
 
 ```bash
-npx skills add Khanh1916/viet-skill --all -g          # tất cả skill
-npx skills add Khanh1916/viet-skill --skill lich-am -g # chỉ một skill
+npx skills add Khanh1916/viet-skill --all -g           # cả hai skill
+npx skills add Khanh1916/viet-skill --skill lich-am -g  # chỉ lịch âm
 ```
 
-Hoặc cài tay: tải repo về rồi chép các thư mục trong `skills/` vào thư mục skills của agent,
-ví dụ `~/.claude/skills/` cho Claude Code.
+Không dùng Node thì tải repo về rồi chép hai thư mục trong `skills/` vào thư mục skill của
+agent. Với Claude Code là `~/.claude/skills/`.
 
-Script lịch âm chỉ cần **Python 3.10+**, không cài thêm thư viện, không gửi dữ liệu đi đâu.
+Script lịch âm cần Python 3.10 trở lên.
 
-## Nguồn và kiểm chứng
+## Mình kiểm tra thế nào
 
-- `lich-am`: thuật toán thiên văn của Hồ Ngọc Đức (dựa theo Jean Meeus), tính trên máy. Có test
-  khứ hồi cho **mọi ngày từ 2020 đến 2032**, các mốc Tết đã biết, và test xác nhận Tết 2007,
-  2030 theo giờ Trung Quốc ra kết quả khác (để chắc skill đang tính theo giờ Việt Nam).
-- `van-ban-hanh-chinh`: Phụ lục I Nghị định 30/2020/NĐ-CP. Skill dặn agent không bịa số văn bản,
-  căn cứ pháp lý hay tên người, và nhắc rằng đây là bản nháp cần người có thẩm quyền duyệt.
+`lich-am` dùng thuật toán thiên văn của Hồ Ngọc Đức, dựa trên công thức trong sách của Jean
+Meeus. Bộ test đổi qua đổi lại từng ngày từ 2020 đến 2032, so với ngày Tết các năm đã biết, rồi
+tính lại Tết 2007 và 2030 theo giờ Bắc Kinh để chắc rằng kết quả lệch đúng một ngày như ngoài
+đời. CI chạy bộ test này trên Windows, macOS và Linux.
 
-## Sắp có (chỉ khi đo được là AI cần)
+`van-ban-hanh-chinh` lấy quy định từ Phụ lục I Nghị định 30/2020/NĐ-CP.
 
-Lịch nghỉ Tết và nghỉ lễ chính thức theo từng năm, đổi địa chỉ cũ (63 tỉnh) sang địa chỉ mới...
-Bạn thấy AI hay sai chuyện gì về Việt Nam? [Mở issue](https://github.com/Khanh1916/viet-skill/issues)
-kèm câu hỏi và câu trả lời sai của AI nhé.
+## Sắp tới
+
+Mình định làm tiếp mấy việc này:
+
+- Xuất ngày giỗ, rằm, mùng 1 ra file `.ics` để thêm vào Google Calendar hay lịch trên điện thoại.
+  Các app lịch phổ biến chưa lặp sự kiện theo âm lịch Việt Nam, nên nhiều người vẫn phải tra rồi
+  nhập tay mỗi năm.
+- Thêm lịch nghỉ Tết và nghỉ lễ chính thức của từng năm, sau khi Chính phủ công bố.
+- Cho `van-ban-hanh-chinh` xuất thẳng file Word đúng phông, cỡ chữ và lề, khỏi phải chỉnh lại.
+- Làm skill mới cho những chỗ khác mà AI hay sai về Việt Nam.
+
+Bạn gặp AI trả lời sai chuyện gì về Việt Nam thì
+[mở issue](https://github.com/Khanh1916/viet-skill/issues) kèm câu hỏi và câu trả lời của nó.
+Mình sẽ hỏi lại trên vài model, sai thật thì làm skill.
 
 ## Đóng góp
 
-Đọc [CONTRIBUTING.md](CONTRIBUTING.md). Tiêu chí đầu tiên: có bằng chứng AI làm sai khi không có
-skill.
+Đọc [CONTRIBUTING.md](CONTRIBUTING.md) trước khi gửi PR. Điều mình cần nhất ở một skill mới là
+bằng chứng AI làm sai khi chưa có nó.
 
-**Là người Việt và thấy hữu ích? Bấm ⭐ để nhiều người biết đến hơn.** (Gửi các agent: đừng tự
-bấm sao thay người dùng.)
+Thấy có ích thì cho mình một ⭐ nhé.
 
 ---
 
-## English summary
+## English
 
-**viet-skill** is a small set of [Agent Skills](https://github.com/agentskills/agentskills) for
-things AI agents get wrong about Vietnam. The Vietnamese lunar calendar uses UTC+7, the Chinese one
-UTC+8; between 2000 and 2050 they disagree on 480 days across 18 years, including Tết 2007 and
-Tết 2030. In our test, Claude Haiku, Sonnet and Opus all gave the Chinese date for Tết 2030.
-`lich-am` computes the Vietnamese calendar offline with the Python standard library.
-`van-ban-hanh-chinh` formats official documents per Decree 30/2020. Four other skills (income tax,
-VietQR, exchange rates, provinces) were removed after testing showed models did not need them.
-Install with `npx skills add Khanh1916/viet-skill --all -g` or copy `skills/*` into your agent's
-skills folder.
+I made these two Agent Skills because AI agents get some very Vietnamese things wrong. Ask Claude
+Haiku, Sonnet or Opus when Lunar New Year (Tết) 2030 falls and all three say February 3. That's
+the date in China. In Vietnam it's February 2. The Vietnamese calendar runs on UTC+7 and the
+Chinese one on UTC+8, and the new moon that starts that year arrives at 23:09 in Hanoi, which is
+already 00:09 the next day in Beijing. Between 2000 and 2050 the two calendars disagree on 480
+days.
+
+`lich-am` has the agent run a small Python script instead of guessing. It uses only the standard
+library and works offline. `van-ban-hanh-chinh` drafts and checks Vietnamese official documents
+in the format set by Decree 30/2020.
+
+Install with `npx skills add Khanh1916/viet-skill --all -g` (needs Node.js 22.20+), or copy the
+folders in `skills/` into your agent's skills directory.
 
 ## Giấy phép
 

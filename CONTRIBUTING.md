@@ -1,29 +1,32 @@
 # Đóng góp cho viet-skill
 
-Cảm ơn bạn! Mỗi skill là một thư mục trong `skills/`:
+Cảm ơn bạn đã ghé qua. Mỗi skill là một thư mục trong `skills/`:
 
 ```
 skills/ten-skill/
   SKILL.md            # bắt buộc: frontmatter `name` (trùng tên thư mục) và `description`
-  scripts/ten.py      # tùy chọn: script Python chỉ dùng thư viện chuẩn
+  scripts/ten.py      # không bắt buộc: script Python chỉ dùng thư viện chuẩn
 ```
 
-## Tiêu chí
+## Trước khi làm skill mới
 
-0. **AI thật sự cần nó.** Kèm bằng chứng: vài câu hỏi thực tế mà ít nhất một model phổ biến trả
-   lời sai khi không có skill, và trả lời đúng khi có. Nếu AI đã tự làm đúng thì skill chỉ làm
-   repo rườm rà thêm. viet-skill từng bỏ 4 skill vì lý do này (xem README).
-1. **Đúng và có nguồn.** Ghi rõ văn bản pháp luật, số hiệu, hoặc nguồn dữ liệu. Số liệu thay
-   đổi theo thời gian (thuế, lương cơ sở, ngày nghỉ) phải ghi năm áp dụng.
-2. **Hợp lệ.** Chỉ dùng nguồn công khai. Không vượt CAPTCHA, không vượt chặn bot, không giả
-   trình duyệt, không cần tài khoản hay mật khẩu của người dùng. Tôn trọng giới hạn truy cập và
-   cache khi cần.
-3. **An toàn.** Skill liên quan tiền, pháp lý, sức khỏe phải dặn agent nói rõ giới hạn, xác nhận
-   lại với người dùng, và không tự thực hiện giao dịch.
-4. **Không thư viện ngoài** nếu có thể; Python 3.10+.
-5. **Có test** trong `tests/`, chạy offline (dùng dữ liệu mẫu thay cho gọi mạng).
-6. `description` trong SKILL.md viết cả tiếng Việt và vài từ khóa tiếng Anh để agent nhận ra
-   khi nào nên dùng.
+Cho mình thấy AI đang sai. Gửi kèm vài câu hỏi thực tế mà ít nhất một model phổ biến trả lời sai
+khi chưa có skill, và trả lời đúng khi có. Nếu AI đã tự làm đúng thì thêm skill chỉ làm agent
+chậm đi.
+
+## Yêu cầu
+
+1. Có nguồn. Ghi rõ văn bản pháp luật, số hiệu hoặc nguồn dữ liệu. Thứ gì thay đổi theo năm
+   (thuế, lương cơ sở, ngày nghỉ) thì ghi năm áp dụng.
+2. Lấy dữ liệu đàng hoàng. Chỉ dùng nguồn công khai, không vượt CAPTCHA hay chặn bot, không giả
+   trình duyệt, không đòi tài khoản hay mật khẩu của người dùng. Có gọi mạng thì tôn trọng giới
+   hạn truy cập của nguồn và lưu cache khi cần.
+3. Việc dính đến tiền, pháp lý hay sức khỏe thì skill phải dặn agent nói rõ giới hạn, hỏi lại
+   người dùng trước khi làm, và không tự thực hiện giao dịch.
+4. Script viết bằng Python 3.10 trở lên, cố gắng chỉ dùng thư viện chuẩn.
+5. Có test trong `tests/` chạy được khi không có mạng. Chỗ nào cần gọi mạng thì dùng dữ liệu mẫu.
+6. Phần `description` trong SKILL.md viết bằng tiếng Việt, thêm vài từ khóa tiếng Anh để agent
+   biết lúc nào nên dùng skill.
 
 ## Chạy test
 
@@ -32,4 +35,4 @@ python -m pip install pytest
 python -m pytest -q
 ```
 
-Muốn đề xuất skill mới nhưng chưa code được? Cứ mở issue mô tả việc bạn muốn agent làm.
+Có ý tưởng mà chưa code được thì cứ mở issue, kể việc bạn muốn agent làm.

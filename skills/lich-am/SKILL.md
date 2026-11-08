@@ -23,7 +23,7 @@ Thêm `--json` để lấy kết quả có cấu trúc.
 ## Lưu ý khi trả lời
 
 - Lịch Việt Nam dùng múi giờ +7 nên có lúc lệch một ngày so với lịch Trung Quốc (+8): từ
-  2000 đến 2050 có 480 ngày như vậy, rơi vào 18 năm, gồm cả Tết 2007 và Tết 2030 (ở Việt Nam
+  2000 đến 2050 có 480 ngày như vậy, nằm trong 18 năm, gồm cả Tết 2007 và Tết 2030 (ở Việt Nam
   là 02/02/2030, Trung Quốc là 03/02). Kiến thức có sẵn của AI và các thư viện lịch Trung Quốc
   thường cho kết quả theo lịch Trung Quốc, nên đừng dùng chúng thay cho script.
 - "Năm âm lịch" khác năm dương lịch: tháng Chạp năm 2026 âm lịch rơi vào đầu năm 2027 dương lịch.
