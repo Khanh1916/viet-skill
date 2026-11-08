@@ -10,6 +10,9 @@ skills/ten-skill/
 
 ## Tiêu chí
 
+0. **AI thật sự cần nó.** Kèm bằng chứng: vài câu hỏi thực tế mà ít nhất một model phổ biến trả
+   lời sai khi không có skill, và trả lời đúng khi có. Nếu AI đã tự làm đúng thì skill chỉ làm
+   repo rườm rà thêm. viet-skill từng bỏ 4 skill vì lý do này (xem README).
 1. **Đúng và có nguồn.** Ghi rõ văn bản pháp luật, số hiệu, hoặc nguồn dữ liệu. Số liệu thay
    đổi theo thời gian (thuế, lương cơ sở, ngày nghỉ) phải ghi năm áp dụng.
 2. **Hợp lệ.** Chỉ dùng nguồn công khai. Không vượt CAPTCHA, không vượt chặn bot, không giả
