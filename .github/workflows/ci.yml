@@ -16,6 +16,13 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
         python: ["3.10", "3.12", "3.14"]
+        # Python 3.10 is not preinstalled on these runners, and downloading it
+        # kept failing with HTTP 504; it is still tested on macOS.
+        exclude:
+          - os: ubuntu-latest
+            python: "3.10"
+          - os: windows-latest
+            python: "3.10"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
